@@ -13,8 +13,8 @@ class preobjectoutput extends ObjectOutputStream {
 }
 
 public class company implements Serializable {
-	String name;
-	int age;
+	String name;//
+	int age;//
 	public company(String a,int b) {
 		this.name=a;
 		this.age=b;
