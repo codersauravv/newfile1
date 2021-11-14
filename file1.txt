@@ -1,0 +1,60 @@
+package iostream_diwali;
+import java.util.*;
+import java.io.*;
+class preobjectoutput extends ObjectOutputStream {
+
+	protected preobjectoutput(OutputStream s) throws IOException, SecurityException {
+		super(s);
+		}
+	@Override
+	protected void writeStreamHeader() throws IOException {
+
+	}
+}
+
+public class company implements Serializable {
+	String name;
+	int age;
+	public company(String a,int b) {
+		this.name=a;
+		this.age=b;
+	}
+	void display()
+	{
+		System.out.println(this.name  + this.age);
+	}
+	public static void main(String[] args)throws IOException,ClassNotFoundException {
+		try {
+	Scanner sc	=new Scanner(System.in);
+	System.out.println("enter your name");
+	String nname=sc.next();
+	System.out.println("enter your age");
+	int age=sc.nextInt();
+	
+	company c=new company(nname, age);
+	
+	FileOutputStream f1=new FileOutputStream("file9.txt",true);
+	File file=new File("file9.txt");
+	if(file.length()<=0) {
+	ObjectOutputStream o1=new ObjectOutputStream(f1);
+	o1.writeObject(c);
+	}else
+	{
+		preobjectoutput pr=new preobjectoutput(f1);
+		pr.writeObject(c);
+	}
+	FileInputStream f2=new FileInputStream("file9.txt");
+	ObjectInputStream o2=new ObjectInputStream(f2);
+	do {
+	c=	(company)o2.readObject();
+	c.display();
+	}while(c!=null);
+	
+}
+		catch (Exception e) {
+		System.out.println(e);
+		}
+	}
+		
+
+}
